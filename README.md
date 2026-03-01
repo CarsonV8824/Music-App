@@ -4,7 +4,7 @@
 
 ### Final song score
 - Range: `0.00` to `1.00`
-- Formula: `0.65 * chord_score + 0.35 * lyric_score`
+- Formula: `0.70 * chord_score + 0.30 * lyric_score`
 - Lyrics floor: lyric score is clamped to a minimum of `0.45` before final mixing
 
 ### Chord score
