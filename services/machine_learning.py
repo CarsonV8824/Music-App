@@ -3,6 +3,8 @@ import numpy as np
 
 import joblib
 
+from improved_song_lyrics import analyze_lyrics
+
 model = LinearRegression()
 
 X = np.array([[1], [2], [3], [4]])  # 2D array (4x1)
@@ -14,7 +16,7 @@ predictions = model.predict([[5]])
 print(predictions)
 
 # save model
-filename = "my_model.joblib"
+filename = "lyric_model.joblib"
 
 joblib.dump(model, filename)
 

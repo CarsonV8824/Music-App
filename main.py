@@ -5,12 +5,12 @@ def get_score_of_song(lyrics:str | None = None, chords:str | None = None) -> dic
     # Prefer provided inputs; fall back to local files.
     chord_text = chords
     if chord_text is None:
-        with open("data/chords.txt", "r") as f:
+        with open("testing/chords.txt", "r") as f:
             chord_text = f.read()
 
     lyric_text = lyrics
     if not lyric_text:
-        with open("data/lyrics.txt", "r") as f:
+        with open("testing/lyrics.txt", "r") as f:
             lyric_text = f.read()
 
     chord_percentage = analyze_chords(chord_text)

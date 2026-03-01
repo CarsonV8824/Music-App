@@ -52,6 +52,6 @@ def analyze_lyrics(song_text: str) -> float:
     return round(score, 4)
 
 if __name__ == "__main__":
-    with open("data/lyrics.txt", "r") as f:
+    with open("testing/lyrics.txt", "r") as f:
         lines = f.read()
     print(analyze_lyrics(lines))

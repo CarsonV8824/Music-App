@@ -138,7 +138,7 @@ def analyze_chords(text: str) -> float:
     return min(1.0, score + form_bonus + cadence_bonus)
 
 if __name__ == "__main__":
-    with open("data/chords.txt", "r") as f:
+    with open("testing/chords.txt", "r") as f:
         file = f.read()
 
     print(analyze_chords(file))
