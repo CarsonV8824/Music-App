@@ -107,8 +107,8 @@ def detect_alliteration(doc) -> int:
 # MAIN ANALYZER
 # ----------------------------
 
-def analyze_lyrics(song_text: str) -> dict:
-
+def analyze_lyrics(song_text: str) -> list:
+    """use this over song_lyrics for more in depth analysis"""
     if not song_text.strip():
         return {}
 
@@ -170,7 +170,7 @@ def analyze_lyrics(song_text: str) -> dict:
         0.15 * (1 - repetition_rate)
     )
 
-    return {
+    """return {
         "score": round(score, 4),
         "ttr": round(ttr, 4),
         "avg_sentence_length": round(avg_sentence_length, 4),
@@ -181,4 +181,17 @@ def analyze_lyrics(song_text: str) -> dict:
         "similes": similes,
         "anaphora": anaphora,
         "alliteration": alliteration
-    }
+    }"""
+
+    return [
+        round(score, 4),
+        round(ttr, 4),
+        round(avg_sentence_length, 4),
+        round(syntactic_depth, 4),
+        round(imagery_density, 4),
+        round(literary_density, 4),
+        round(repetition_rate, 4),
+        similes,
+        anaphora,
+        alliteration
+    ]

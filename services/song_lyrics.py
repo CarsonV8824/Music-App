@@ -3,6 +3,7 @@
 NLP = spacy.load("en_core_web_sm")
 
 def analyze_lyrics(song_text: str) -> float:
+    """use improved song lyrics for ml. This is fine for one song"""
     if not song_text.strip():
         return 0.0
 
