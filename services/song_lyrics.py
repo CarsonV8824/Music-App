@@ -1,9 +1,12 @@
 ﻿import spacy
 NLP = spacy.load("en_core_web_sm")
 
-def analyze_lyrics(song_text):
+def analyze_lyrics(song_text:str) -> float:
     global NLP
     doc = NLP(song_text)
+
+    if not song_text:
+        return 0.0
 
     words = [t.text.lower() for t in doc if t.is_alpha]
     ttr = len(set(words)) / len(words)
@@ -30,6 +33,6 @@ def analyze_lyrics(song_text):
     return score
 
 if __name__ == "__main__":
-    with open("lyrics.txt", "r") as f:
+    with open("data/lyrics.txt", "r") as f:
         text = f.read()
     print(analyze_lyrics(text))
