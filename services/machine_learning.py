@@ -7,7 +7,7 @@ import sys
 from improved_song_lyrics import analyze_lyrics
 
 df = pd.read_csv("song lyrics/billboard_top_100.csv")
-lyrics:list[str] = df["Lyrics"].head(1000).to_list()
+lyrics:list[str] = df["Lyrics"].to_list()
 new_lyrics = []
 for lyric in lyrics:
     try:
@@ -18,12 +18,20 @@ for lyric in lyrics:
 print(f"{len(new_lyrics)} out of {len(lyrics)} were used.")
 
 data = []
-for lyric in new_lyrics:
-    data.append(analyze_lyrics(lyric))
+for i, lyric in enumerate(new_lyrics):
+    try:
+        result = analyze_lyrics(lyric)
+        if len(result) == 10:
+            print(f"Index {i}: result length = {len(result)}")
+            data.append(result)
+    except Exception as e:
+        print(f"Error at index {i}: {e}")
+        print(f"Lyric: {lyric[:100]}")
+        break
 
 model = LinearRegression()
 
-X = np.array(data)
+X = np.array(data, dtype=object)  # or handle padding manually
 y = np.array([line[0] for line in data])
 model.fit(X, y)
 
