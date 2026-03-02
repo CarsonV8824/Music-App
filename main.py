@@ -1,20 +1,20 @@
 from services.song_chords import analyze_chords
 from services.song_lyrics import analyze_lyrics
 
+from services.machine_learning import get_score_of_lyrics_from_model
+
 def get_score_of_song(lyrics:str | None = None, chords:str | None = None) -> dict[str, float]:
     # Prefer provided inputs; fall back to local files.
     chord_text = chords
-    if chord_text is None:
-        with open("testing/chords.txt", "r") as f:
-            chord_text = f.read()
+    if not chord_text:
+        raise ValueError("No Chords")
 
     lyric_text = lyrics
     if not lyric_text:
-        with open("testing/lyrics.txt", "r") as f:
-            lyric_text = f.read()
+        raise ValueError("no Lyrics in here")
 
     chord_percentage = analyze_chords(chord_text)
-    lyric_percentage = analyze_lyrics(lyric_text)
+    lyric_percentage = get_score_of_lyrics_from_model(lyric_text)
     
     CHORD_WEIGHT = 0.7
     LYRIC_WEIGHT = 0.3
@@ -31,7 +31,8 @@ def get_score_of_song(lyrics:str | None = None, chords:str | None = None) -> dic
     for key, value in bands.items():
         if score * 100 in value:
             return f"score: {score} which is a {key} song."
+    return score
     
 
 if __name__ == "__main__":
-    print(get_score_of_song())
+    print(get_score_of_song("hello darkness", "C E G G#"))

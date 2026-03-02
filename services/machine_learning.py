@@ -4,7 +4,11 @@ import joblib
 import pandas as pd
 import sys
 
-from improved_song_lyrics import analyze_lyrics
+try:
+    from improved_song_lyrics import analyze_lyrics
+except ModuleNotFoundError:
+    from services.improved_song_lyrics import analyze_lyrics
+
 
 df = pd.read_csv("song lyrics/billboard_top_100.csv")
 lyrics:list[str] = df["Lyrics"].to_list()
@@ -40,10 +44,18 @@ predictions = model.predict([analyze_lyrics("help me like the sun")])
 print(predictions)
 
 # save model
-filename = "lyric_model.joblib"
 
+filename = "lyric_model.joblib"
 joblib.dump(model, filename)
 
 # load model
 loaded_model:LinearRegression = joblib.load(filename)
 
+def get_score_of_lyrics_from_model(text:str) -> float:
+    filename = "lyric_model.joblib"
+    loaded_model:LinearRegression = joblib.load(filename)
+    final = loaded_model.predict([analyze_lyrics(text)])
+    return final[0]
+
+if __name__ == "__main__":
+    print(get_score_of_lyrics_from_model("Hello darkness my old friend. I have come to talk to you again. Becuase there is a vision softly creeping"))
